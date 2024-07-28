@@ -1,9 +1,10 @@
 using ExceptionTest.Base;
 using ExceptionTest.Exceptions;
+using ExceptionTest.ProblemDetails;
 
 namespace ExceptionTest.Handlers;
 
 public class DefaultExceptionHandler : ExceptionHandler<DefaultException>
 {
-    public override Microsoft.AspNetCore.Mvc.ProblemDetails HandleExceptionAsync(Exception exception) => new();
+    public override Microsoft.AspNetCore.Mvc.ProblemDetails HandleExceptionAsync(Exception exception) => new DefaultProblemDetails(exception.Message);
 }
