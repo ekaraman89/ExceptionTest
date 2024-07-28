@@ -27,7 +27,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
     {
-        throw new BusinessException("This is a business exception");
+        throw new ValidationException("This is a validation exception");
         var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast
                 (
