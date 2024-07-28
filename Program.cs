@@ -1,10 +1,13 @@
+using ExceptionTest.Exceptions;
+using ExceptionTest.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddExceptionHandlers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -14,6 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandling();
 app.UseHttpsRedirection();
 
 var summaries = new[]
@@ -23,6 +27,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
     {
+        throw new DefaultException("This is a default exception");
         var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast
                 (
